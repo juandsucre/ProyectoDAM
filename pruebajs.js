@@ -5,6 +5,7 @@ var httpreq = new XMLHttpRequest();
 function inicializacion()
 {
     document.getElementById("crearCliente").addEventListener("click", crearCliente)
+    document.getElementById("cancelar").addEventListener("click", cancelar)
     document.getElementById("idmod").addEventListener("click", modificarCliente)
 
     httpreq.open('GET', 'http://localhost:8080/RestClientes/webapi/clientes/3')
@@ -39,4 +40,9 @@ function procesapeticion()
 function crearCliente()
 {
     location.href = 'formulario.html'
+}
+
+function cancelar()
+{
+    window.location.href = 'index.html'
 }
