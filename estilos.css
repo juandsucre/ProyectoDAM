@@ -1,0 +1,20 @@
+.btn{
+    margin-top: 100px;
+    background: #34495e;
+    margin-bottom: 10px;
+}
+th{
+    color: #fff;
+}
+.navbar{
+    background: #34495e;
+}
+body{
+    background: #e4f1fe;
+}
+.nav-link{
+    font-size: 1.4em;
+}
+.navbar-brand{
+    font-size: 1.8em;
+}
