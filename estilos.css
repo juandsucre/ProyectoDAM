@@ -17,4 +17,18 @@ body{
 }
 .navbar-brand{
     font-size: 1.8em;
+<<<<<<< HEAD
+=======
+}
+.fas{
+    font-size: 40px;
+    color: #fff;
+}
+.far{
+    padding: 10px;
+    font-size: 20px;
+}
+.fa-edit{
+    border-right: 2px dotted #34495e;
+>>>>>>> d68246922ce8c994ac2212554224c834ee2f254d
 }
