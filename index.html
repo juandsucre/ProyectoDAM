@@ -11,7 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/46096f1721.js" crossorigin="anonymous"></script>
     
-    <script src="pruebajs.js"></script>
+    <script  src="pruebajs.js"></script>
     <title>CeepExpress</title>
 </head>
 <header>
@@ -38,52 +38,65 @@
 <body>
     <div class="container-fluid">
         <h1 class="pt-3">Clientes</h1>
-        <button type="button" class=" btn btn-primary float-right btn-lg" id="crearCliente">Crear</button>
+        <button type="button" class=" btn btn-primary float-right btn-lg" id ="redirecRegistro">Crear</button>
+        <button type="button" class=" btn btn-primary float-right btn-lg">Destinatarios de Clientes</button>
     </div>
     <div class="container-fluid">
-            <button type="button" class=" btn btn-primary float-right btn-lg" id="visualizar">visualizar</button>
-            <table class="table table-bordered table-striped">
+            <button type="button" class=" btn btn-primary float-right btn-lg" id="siguiente">Siguientes 5</button>
+            <table class="table table-bordered table-striped" id="tabla">
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Nombre Cliente</th>
                     <th scope="col">CIF/NIF</th>
-                    <th scope="col">Dirección</th>
+                    <th scope="col">Dirección de la Empresa</th>
                     <th scope="col">Acción</th>
                     </tr>
                 </thead>
-
-                <tr>
-                    <td>1</td>
-                    <td id="cif">PRUEBA</td>
-                    <td>PRUEBAEMPRESA</td>
-                    <td>PRUEBATELEFONO</td>
-                    <td colspan="2">
-                        <i class="far fa-edit"></i>
-                        <i class="far fa-trash-alt"></i>
-                    </td>
-                </tr>
-                <tr>
-                        <td>1</td>
-                        <td>PRUEBA</td>
-                        <td>PRUEBAEMPRESA</td>
-                        <td>PRUEBATELEFONO</td>
-                        <td colspan="2">
-                            <i class="far fa-edit"></i>
-                            <i class="far fa-trash-alt"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>PRUEBA</td>
-                        <td>PRUEBAEMPRESA</td>
-                        <td>PRUEBATELEFONO</td>
-                        <td colspan="2">
-                            <i class="far fa-edit"></i>
-                            <i class="far fa-trash-alt"></i>
-                        </td>
-                    </tr>
             </table>
     </div>
+    <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="padding:35px 50px; height: 750px;">
+        <div class="modal-header" >
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <span class="glyphicon glyphicon-lock" style="font-size: 40px;"></span>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form role="form">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> ID de Cliente</label>
+              <input  class="form-control" id="idCliente" readonly>
+            </div>
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Nombre del Cliente</label>
+              <input type="text" class="form-control" id="nombreCliente" placeholder="Nombre Cliente">
+            </div>
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> CIF/NIF</label>
+              <input type="text" class="form-control" id="cifnif" placeholder="CIF/NIF">
+            </div>
+            <table id="prueba">
+
+            
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span>Dirección de la Empresa</label>
+              <input type="text" class="form-control" id="direccion" placeholder="Dirección">
+            </div>
+          </table>
+              <button class="btn btn-success btn-block" id="actualizar"><span class="glyphicon glyphicon-off" ></span>Actualizar Datos</button>
+              <button type="button" class="btn btn-success btn-block" data-toggle="modal" id="agregarDireccion"><span class="glyphicon glyphicon-off" ></span>Direcciones de envio</button>
+              <button type="submit" class="btn btn-danger btn-block" data-dismiss="modal"><span class="glyphicon glyphicon-off"></span> Cancelar</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
 </body>
 </html>

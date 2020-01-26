@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="estilos.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
+    <script src="https://kit.fontawesome.com/46096f1721.js" crossorigin="anonymous"></script>
+    <script src="gestionDireccion.js"></script>
+    <title>CeepExpress</title>
+</head>
+<header>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <i class="fas fa-box-open"></i>
+            <a class="navbar-brand text-white" href="index.html">CeepExpress</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link text-white" href="index.html">Clientes<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="envios.html">Envios</a>
+                </li>
+            </div>
+          </nav>
+</header>
+<div class="container">
+    <h1 class="pt-1">Clientes</h1>
+        <div class="row">
+            <div class="col-xs-12 col-md-9">
+              <label for="idCliente">Nombre del Cliente</label>
+              <select class="form-control" id="select"></select>
+              <div class="form-group">
+                  <label for="direccion ml-5">CIF/NIF</label>
+                <div class="input-group">
+                  <input  class="form-control" id="CIFNIF" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <label for="idCliente">Dirección de Facturación</label>
+          <input  class="form-control input-sm" id="direccion" readonly>
+          <button type="button" class=" btn btn-primary float-right btn-lg" id ="redirecRegistro">Añadir nuevo destino</button>
+        </div>
+        </div>
+</div>
+<div class="container-fluid">
+        <button type="button" class=" btn btn-primary float-right btn-lg" id="visualizar">Siguientes 5</button>
+        <table class="table table-bordered table-striped" id="tabla">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre del destinatario</th>
+                <th scope="col">DNI/NIF</th>
+                <th scope="col">Código Postal</th>
+                <th scope="col">Dirección de entrega</th>
+                <th scope="col">Editar Dirección</th>
+                </tr>
+            </thead>
+        </table>
+</div>
