@@ -7,7 +7,8 @@ function inicializacion() {
    // document.getElementById("idModificar").addEventListener("click", modificarCliente)
 
     document.getElementById("visualizar").addEventListener("click", visualizarClientes)
-    document.getElementById("redirecRegistro").addEventListener("click", redirecRegistro)
+   // document.getElementById("redirecRegistro").addEventListener("click", redirecRegistro)
+    
    // console.log(persona);
     
     httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/destinatarios')
@@ -17,32 +18,42 @@ function inicializacion() {
 }
 
 var persona = JSON.parse(localStorage.getItem('persona'));
-var posicion = localStorage.getItem('posicion')
-console.log(persona[posicion]);
-var e = document.getElementById("select");
-
-//$('#select').append(new Option(persona[i].nombreCliente, i))
-   
-// Material Select Initialization
-
+var posicion = localStorage.getItem('posicion') 
 function visualizarClientes() {
+
+    console.log(persona[posicion]);
+    console.log("posicion actual" +posicion)
+    var posicionsel
+     posicionsel = posicion
+   // alert("POSICION INDEX"+posicion)
+
     //var name = document.getElementById('id').value;
     //var httpreq = new XMLHttpRequest();
     //  document.getElementById("idCliente").value = persona[posicion].nombreCliente
-    document.getElementById("CIFNIF").value = persona[posicion].cifnif
-    document.getElementById("direccion").value = persona[posicion].direccionFacturacion
+
     if (httpreq.readyState == 4) {
         if (httpreq.status == 200) {
             var person = JSON.parse(httpreq.responseText);
             console.log(person[1].clientes.idCliente)
-
-            let k;
-                rellenaSelect()
+            $('#select').append('<option value="' + posicionsel + '">' + persona[posicionsel].nombreCliente + '</option>')
+            for (var j = 0; j < persona.length; j++) {
+                //'<option id="'+i+'">'+persona[i].nombreCliente+'</option>'
+                $('#select').append('<option value="' + j + '">' + persona[j].nombreCliente + '</option>')
+            }
+            var e = document.getElementById("select");
+           var strUser = e.options[e.selectedIndex].value;
+           document.getElementById("CIFNIF").value = persona[strUser].cifnif
+           document.getElementById("direccion").value = persona[strUser].direccionFacturacion
+           localStorage.setItem("opcions", strUser);
+            alert(strUser)
+           // alert("posicion"+posicionsel)
+           
+            
                 for (var i = 0; i < 100; i++) {
-                        
+
                     //    $('#select').append('<option value="'+i+'">'+persona[i].nombreCliente+'</option>')
                     //$('#select').append('<option value="'+i+'">'+persona[i].nombreCliente+'</option>')
-                    if (person[i].clientes.idCliente === persona[posicion].idCliente) {
+                    if (person[i].clientes.idCliente === persona[posicionsel].idCliente) {
                         
                         $("#tabla").append(
 
@@ -66,17 +77,23 @@ function visualizarClientes() {
             
         }
     }
+    e.addEventListener("change",actualiza(strUser))
 
     //httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/2')
     //httpreq.send();
 }
-function rellenaSelect(){
-    $('#select').append('<option value="' + posicion + '">' + persona[posicion].nombreCliente + '</option>')
-            for (var j = 0; j < 20; j++) {
-                //'<option id="'+i+'">'+persona[i].nombreCliente+'</option>'
-                $('#select').append('<option value="' + j + '">' + persona[j].nombreCliente + '</option>')
-            }
-            var e = document.getElementById("select");
-            var strUser = e.options[e.selectedIndex].text;
-            console.log(strUser)
+
+function actualiza(pos)
+{
+
+  //  $("#tbody").remove()
+  var posicionsel = localStorage.getItem('opcions')
+  
+    console.log(pos)
+    //localStorage.clear()
+    posicion = posicionsel
+    localStorage.setItem('posicion', posicion)
+    
+    //  visualizarClientes();
+    //location.reload();
 }

@@ -30,7 +30,7 @@ function visualizarClientes() {
         if (httpreq.status == 200) {
             var person = JSON.parse(httpreq.responseText);
             localStorage.setItem('persona', JSON.stringify(person));
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 21; i++) {
                 $("#tabla").append(
                     '<tr>' +
                     '<td >' + person[i].idCliente + '</td>' +
@@ -41,7 +41,7 @@ function visualizarClientes() {
                     '<i class="far fa-edit" onclick="editar(this,' + person[i].idCliente + ',' + i + ')" id="myBtn"></i>'
                     + '<i class="far fa-trash-alt" onclick="eliminar(this ,' + person[i].idCliente + ',' + i + ')" id="modal"></i>' + '</td>'
                     + '</tr>'
-                );
+                )
             }
             //document.getElementById('about').value = person.about;
         }
@@ -53,7 +53,7 @@ function visualizarClientes() {
 
 
 function siguiente(){
-    
+
 }
 //------- dispara al tocar el icono de editar -------
 function editar(ctl, persona, i) {
@@ -98,10 +98,13 @@ function editar(ctl, persona, i) {
             let jsonstring = JSON.stringify(cliente)
 
             httpreq.send(jsonstring)
+            location.reload();
+            alert("Se han actualizado los datos")
             //document.getElementById("direccion").addEventListener("change", modifica)
             //alert("se va ha modificado")
         }
     });
+  
 
 }
 
