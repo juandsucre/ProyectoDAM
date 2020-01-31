@@ -1,6 +1,6 @@
 .btn{
-    margin-top: 100px;
-    background: #34495e;
+    margin-top: 30px;
+    /*background: #34495e;*/
     margin-bottom: 10px;
 }
 th{
@@ -28,4 +28,9 @@ body{
 }
 .fa-edit{
     border-right: 2px dotted #34495e;
+}
+p:hover{
+    color:green;
+    font-weight: bold;
+
 }

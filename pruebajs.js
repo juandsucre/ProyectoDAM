@@ -6,12 +6,17 @@ function inicializacion() {
 
     document.getElementById("siguiente").addEventListener("click", siguiente)
     document.getElementById("redirecRegistro").addEventListener("click", redirecRegistro)
+    document.getElementById("redirecDestinatarios").addEventListener("click", redirecDestinatarios)
 
-
-    httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/')
+    httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/get')
     //httpreq.onload = procesapeticion
     httpreq.onload = visualizarClientes
     httpreq.send()
+}
+
+function redirecDestinatarios(){
+    alert("Hola")
+    location.href = 'destinatarios.html'
 }
 
 
@@ -33,13 +38,13 @@ function visualizarClientes() {
             for (var i = 0; i < 21; i++) {
                 $("#tabla").append(
                     '<tr>' +
-                    '<td >' + person[i].idCliente + '</td>' +
-                    '<td onclick="editar(this,' + person[i].idCliente + ',' + i + ')">' + person[i].nombreCliente + '</td>' +
-                    '<td onclick="editar(this,' + person[i].idCliente + ',' + i + ')">' + person[i].cifnif + '</td>' +
-                    '<td onclick="editar(this,' + person[i].idCliente + ',' + i + ')">' + person[i].direccionFacturacion + '</td>'
+                    '<td >'+ '<p  style ="cursor: pointer;">' + person[i].idCliente + '</p>' +'</td>' +
+                    '<td onclick="editar(this,' + person[i].idCliente + ',' + i + ')">' +'<p style="cursor:pointer">'+ person[i].cifnif +'</p>'+ '</td>' +
+                    '<td onclick="editar(this,' + person[i].idCliente + ',' + i + ')">' +'<p style="cursor:pointer">'+ person[i].nombreCliente +'</p>'+ '</td>' +
+                    '<td onclick="editar(this,' + person[i].idCliente + ',' + i + ')">' +'<p style="cursor:pointer">'+ person[i].direccionFacturacion +'</p>'+ '</td>'
                     + '<td colspan="2">' +
-                    '<i class="far fa-edit" onclick="editar(this,' + person[i].idCliente + ',' + i + ')" id="myBtn"></i>'
-                    + '<i class="far fa-trash-alt" onclick="eliminar(this ,' + person[i].idCliente + ',' + i + ')" id="modal"></i>' + '</td>'
+                    '<i style ="cursor: pointer;" class="far fa-edit" onclick="editar(this,' + person[i].idCliente + ',' + i + ')" id="myBtn"></i>'
+                    + '<i style ="cursor: pointer;" class="far fa-trash-alt" onclick="eliminar(this ,' + person[i].idCliente + ',' + i + ')" id="modal"></i>' + '</td>'
                     + '</tr>'
                 )
             }
@@ -51,10 +56,6 @@ function visualizarClientes() {
     //httpreq.send();
 }
 
-
-function siguiente(){
-
-}
 //------- dispara al tocar el icono de editar -------
 function editar(ctl, persona, i) {
     var j = i;
@@ -65,9 +66,12 @@ function editar(ctl, persona, i) {
 
     //MODAL
     document.getElementById("agregarDireccion").addEventListener("click", agregarDireccion)
+    document.getElementById("redirecDestinatarios").addEventListener("click", redirecDestinatarios)
+
     function agregarDireccion() {
         window.location.href = 'direcciones.html'
     }
+
 
     $(document).ready(function () {
         //funcion activa modal y envia los datos ç
@@ -92,14 +96,14 @@ function editar(ctl, persona, i) {
                 "nombreCliente": document.getElementById("nombreCliente").value,
             }
             document.getElementById("cifnif").value
-            httpreq.open('PUT', 'http://localhost:8080/ProyectoHiberest/webapi/clientes')
+            httpreq.open('PUT', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/update')
             httpreq.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
             // httpreq.onload =JSON.parse(httpreq.responseText)
             let jsonstring = JSON.stringify(cliente)
 
             httpreq.send(jsonstring)
             location.reload();
-            alert("Se han actualizado los datos")
+            alert("SE han actualizado los")
             //document.getElementById("direccion").addEventListener("change", modifica)
             //alert("se va ha modificado")
         }
@@ -109,6 +113,8 @@ function editar(ctl, persona, i) {
 }
 
 
+
+
 function eliminar(ctl, persona, i) {
     var j = i;
     var prueba = persona
@@ -116,7 +122,7 @@ function eliminar(ctl, persona, i) {
     //console.log(ctl);
 
     console.log(prueba[j]);
-    httpreq.open('DELETE', 'http://localhost:8080/ProyectoHiberest/webapi/clientes')
+    httpreq.open('DELETE', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/delete')
     httpreq.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
     let jsonstring = JSON.stringify(prueba[j])
     httpreq.send(jsonstring)

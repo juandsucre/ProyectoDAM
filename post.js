@@ -8,7 +8,7 @@ function inicializacion() {
     //document.getElementById("visualizar").addEventListener("click", visualizarClientes)
     document.getElementById("redirecInicio").addEventListener("click", redirecInicio)
 
-    httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/')
+    httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/get')
     //httpreq.onload = procesapeticion
     httpreq.send()
 }
@@ -23,7 +23,7 @@ function crearCliente() {
         "nombreCliente": document.getElementById("NombreCliente").value,
     }
 
-    httpreq.open('POST', 'http://localhost:8080/ProyectoHiberest/webapi/clientes')
+    httpreq.open('POST', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/add')
     httpreq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     httpreq.onload = procesacreacion
     let jsonstring = JSON.stringify(cliente)

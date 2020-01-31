@@ -7,11 +7,12 @@ function inicializacion() {
    // document.getElementById("idModificar").addEventListener("click", modificarCliente)
 
     document.getElementById("visualizar").addEventListener("click", visualizarClientes)
+    document.getElementById("redirecDestinatarios").addEventListener("click", redirecDestinatarios)
    // document.getElementById("redirecRegistro").addEventListener("click", redirecRegistro)
     
    // console.log(persona);
     
-    httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/destinatarios')
+    httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/destinatarios/get')
     //httpreq.onload = procesapeticion
     httpreq.onload = visualizarClientes
     httpreq.send()
@@ -19,81 +20,79 @@ function inicializacion() {
 
 var persona = JSON.parse(localStorage.getItem('persona'));
 var posicion = localStorage.getItem('posicion') 
+
 function visualizarClientes() {
-
-    console.log(persona[posicion]);
-    console.log("posicion actual" +posicion)
     var posicionsel
-     posicionsel = posicion
-   // alert("POSICION INDEX"+posicion)
-
+    posicionsel = posicion
+    // alert("POSICION INDEX"+posicion)
     //var name = document.getElementById('id').value;
     //var httpreq = new XMLHttpRequest();
     //  document.getElementById("idCliente").value = persona[posicion].nombreCliente
 
     if (httpreq.readyState == 4) {
         if (httpreq.status == 200) {
-            var person = JSON.parse(httpreq.responseText);
-            console.log(person[1].clientes.idCliente)
+            var destinatarios = JSON.parse(httpreq.responseText);
+            console.log(destinatarios[1].clientes.idCliente)
             $('#select').append('<option value="' + posicionsel + '">' + persona[posicionsel].nombreCliente + '</option>')
             for (var j = 0; j < persona.length; j++) {
                 //'<option id="'+i+'">'+persona[i].nombreCliente+'</option>'
                 $('#select').append('<option value="' + j + '">' + persona[j].nombreCliente + '</option>')
             }
             var e = document.getElementById("select");
-           var strUser = e.options[e.selectedIndex].value;
-           document.getElementById("CIFNIF").value = persona[strUser].cifnif
-           document.getElementById("direccion").value = persona[strUser].direccionFacturacion
-           localStorage.setItem("opcions", strUser);
-            alert(strUser)
-           // alert("posicion"+posicionsel)
-           
-            
-                for (var i = 0; i < 100; i++) {
+            var strUser = e.options[e.selectedIndex].value;
+            document.getElementById("CIFNIF").value = persona[strUser].cifnif
+            document.getElementById("direccion").value = persona[strUser].direccionFacturacion
+            localStorage.setItem("opcions", strUser);
+            //alert(strUser)
+            // alert("posicion"+posicionsel)
 
-                    //    $('#select').append('<option value="'+i+'">'+persona[i].nombreCliente+'</option>')
-                    //$('#select').append('<option value="'+i+'">'+persona[i].nombreCliente+'</option>')
-                    if (person[i].clientes.idCliente === persona[posicionsel].idCliente) {
-                        
-                        $("#tabla").append(
+            var bool = 0
+            for (var i = 0; i < destinatarios.length; i++){
 
-                            '<tr>' +
-                            '<td>' + person[i].idDestinatario + '</td>' +
-                            '<td>' + person[i].nombreDestinatario + '</td>' +
-                            '<td>' + person[i].dninif + '</td>' +
-                            '<td>' + person[i].codigoPostal + '</td>' +
-                            '<td>' + person[i].direccionCompleta + '</td>'
-                            + '<td colspan="2">' +
-                            '<i class="far fa-edit" id="myBtn"></i>'
-                            + '<i class="far fa-trash-alt"></i>' + '</td>'
-                            + '</tr>'
-                        );
+                //    $('#select').append('<option value="'+i+'">'+persona[i].nombreCliente+'</option>')
+                //$('#select').append('<option value="'+i+'">'+persona[i].nombreCliente+'</option>')
+                if (destinatarios[i].clientes.idCliente === persona[posicionsel].idCliente) {
+                    bool = 1;
+                    $("#tabla").append(
 
-                    }
-
-                    //$('#select').append('<option value="'+i+'">'+persona[i].nombreCliente+'</option>')
+                        '<tr>' +
+                        '<td>' + destinatarios[i].idDestinatario + '</td>' +
+                        '<td>' + destinatarios[i].nombreDestinatario + '</td>' +
+                        '<td>' + destinatarios[i].dninif + '</td>' +
+                        '<td>' + destinatarios[i].codigoPostal + '</td>' +
+                        '<td>' + destinatarios[i].direccionCompleta + '</td>'
+                        + '<td colspan="2">' +
+                        '<i class="far fa-edit" id="myBtn"></i>'
+                        + '<i class="far fa-trash-alt"></i>' + '</td>'
+                        + '</tr>'
+                    );
                 }
-                //document.getElementById('about').value = person.about;
-            
+            }
+            if (bool === 0) {
+
+                $("#tabla").append(
+                    '<div class="d-flex justify-content-center" style="position:absolute; margin-left:33%"><br>' +
+                    '<h2 class="text-center"> Este cliente no tiene destinatarios <br> Crea un nuevo destinatario</h2>' +
+                    '</div>' +
+                    '<div style="position:absolute; margin-left:45%" class="pt-5">' +
+                    '<br><button type="button" class="btn btn-success" onclick="redirecDestinatarios()">Crear Destinatario</button>' +
+                    '</div>'
+                );
+            }
         }
     }
     e.addEventListener("change",actualiza(strUser))
-
-    //httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/2')
-    //httpreq.send();
 }
 
 function actualiza(pos)
 {
-
-  //  $("#tbody").remove()
   var posicionsel = localStorage.getItem('opcions')
   
     console.log(pos)
-    //localStorage.clear()
     posicion = posicionsel
     localStorage.setItem('posicion', posicion)
-    
-    //  visualizarClientes();
-    //location.reload();
+}
+
+function redirecDestinatarios(){
+    location.href = 'destinatarios.html'
 }

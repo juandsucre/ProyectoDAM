@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="estilos.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/46096f1721.js" crossorigin="anonymous"></script>
+    <script src="gestionDestinatarios.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ingresa Destinatarios</title>
+  </head>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <i class="fas fa-box-open"></i>
+      <a class="navbar-brand text-white" href="index.html">CeepExpress</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link text-white" href="index.html">Clientes <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="envios.html">Envios</a>
+          </li>
+      </div>
+    </nav>
+  </header>
+
+  <body>
+    <div class="container otro">
+      <form class="mt-5">
+        <div class="form-group">
+          <label for="NombreDestinatario">Nombre Destinatario</label>
+          <input type="text" class="form-control" id="NombreDestinatario" placeholder="Introduzca Nombre del Destinatario">
+        </div>
+        <div class="form-group">
+          <label for="DNINIF">DNI/NIF</label>
+          <input type="text" class="form-control" id="DNINIF" placeholder="Introduzca DNI/NIF">
+        </div>
+        <div class="form-group">
+          <label for="CodPostal">Codigo Postal</label>
+          <input type="text" class="form-control" id="CodPostal" placeholder="Código Postal">
+        </div>
+        <div class="form-group">
+            <label for="Direccion">Dirección Completa</label>
+            <input type="text" class="form-control" id="DireccionCom" placeholder="Dirección Completa">
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary" id="crearDestino">Registrar</button>
+          <button type="submit" class="btn btn-primary" id="redirecInicio">Volver</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

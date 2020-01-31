@@ -10,9 +10,30 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <script src="pruebajs.js"></script>
+  <script src="https://kit.fontawesome.com/46096f1721.js" crossorigin="anonymous"></script>
+  <script src="gestionEnvios.js"></script>
   <title>Envios</title>
 </head>
+<header>
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+      <i class="fas fa-box-open"></i>
+          <a class="navbar-brand text-white" href="index.html">CeepExpress</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link text-white" href="index.html">Clientes<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="envios.html">Envios</a>
+              </li>
+          </div>
+        </nav>
+</header>
 
 <body>
   <div class="container d-flex justify-content-center" >
@@ -22,25 +43,15 @@
   <div class="container" style="margin-top: 50px;">
     <form>
       <div class="row">
-        <div class="col">
-          <select class="form-control" id="clienteEnvia">
-            <option>NADA SELECCIONADO</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-          <label for="clienteEnvia">Elegir Cliente</label>
+        <div class="col" id="clienteEnvia">
+
+          <label for="clienteEnvia">Seleccione Cliente</label>
         </div>
         <div class="col">
           <select class="form-control" id="clienteRecibe">
-            <option>NADA SELECCIONADO</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <option value="1">Seleccione Destinatario</option>
           </select>
-          <label for="clienteRecibe">Elegir Destinatario</label>
+          <label for="clienteRecibe">Seleccione Destinatario</label>
         </div>
       </div>
       <fieldset class="form-group" style="margin-top: 70px">
@@ -63,25 +74,25 @@
       </fieldset>
       <div class="form-group row" style="margin-top: 70px">
         <div class="col">
-          <label for="CIF">Nombre</label>
-          <input type="text" class="form-control" id="CIF" placeholder="Introduzca Nombre">
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" id="nombre" placeholder="Introduzca Nombre" readonly>
         </div>
         <div class="col">
           <label for="CIF">CIF/NIF</label>
-          <input type="text" class="form-control" id="CIF" placeholder="Introduzca CIF/NIF">
+          <input type="text" class="form-control" id="cifnif" placeholder="Introduzca CIF/NIF" readonly>
         </div>
         <div class="col">
           <label for="codPostal">Código Postal</label>
-          <input type="text" class="form-control" id="codPostal" placeholder="Introduzca COD Postal">
+          <input type="text" class="form-control" id="codPostal" placeholder="Introduzca COD Postal" readonly>
         </div>
       </div>
       <div class="row-sm-10">
         <label for="direccion">Dirección Completa</label>
-        <input type="text" class="form-control" id="direccion" placeholder="Introduzca Dirección Completa">
+        <input type="text" class="form-control" id="direccion" placeholder="Introduzca Dirección Completa" readonly>
       </div>
   </div>
   <div class="form-group" >
-    <div class="d-flex justify-content-end" style="margin-top: -70px;">
+    <div class="d-flex justify-content-end" >
       <button type="submit" class="btn btn-primary" style="margin-right:20px;">Enviar</button>
       <button type="submit" class="btn btn-secondary" style="margin-right:130px;" id="cancelar">Cancelar</button>
     </div>
