@@ -1,22 +1,38 @@
 window.onload = inicializacion
 var httpreq = new XMLHttpRequest();
+var ini
 function inicializacion() {
     // document.getElementById("crearCliente").addEventListener("click", crearCliente)
     // document.getElementById("idModificar").addEventListener("click", modificarCliente)
-
-    document.getElementById("siguiente").addEventListener("click", siguiente)
     document.getElementById("redirecRegistro").addEventListener("click", redirecRegistro)
     document.getElementById("redirecDestinatarios").addEventListener("click", redirecDestinatarios)
-
-    httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/get')
+    ini=0
+    httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/get?idIni=0&idFin=10')
     //httpreq.onload = procesapeticion
     httpreq.onload = visualizarClientes
     httpreq.send()
+    document.getElementById("siguiente").addEventListener("click", siguiente)
+    document.getElementById("atras").addEventListener("click", atras)
 }
 
 function redirecDestinatarios(){
     alert("Hola")
     location.href = 'destinatarios.html'
+}
+function siguiente(){
+    ini = parseInt(ini+10)
+    httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/get?idIni='+ini+'&idFin=10')
+    //httpreq.onload = visualizarClientes
+    httpreq.send()
+}
+
+function atras(){
+    ini = parseInt(ini-10)
+    //console.log(ini)
+    //console.log(size)
+    httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/get?idIni='+ini+'&idFin=10')
+    //httpreq.onload = visualizarClientes
+    httpreq.send()
 }
 
 
@@ -31,11 +47,12 @@ function cancelar() {
 function visualizarClientes() {
     //var name = document.getElementById('id').value;
     //var httpreq = new XMLHttpRequest();
+    document.getElementById("tbody").innerHTML=""
     if (httpreq.readyState == 4) {
         if (httpreq.status == 200) {
             var person = JSON.parse(httpreq.responseText);
             localStorage.setItem('persona', JSON.stringify(person));
-            for (var i = 0; i < 21; i++) {
+            for (var i = 0; i < person.length; i++) {
                 $("#tabla").append(
                     '<tr>' +
                     '<td >'+ '<p  style ="cursor: pointer;">' + person[i].idCliente + '</p>' +'</td>' +

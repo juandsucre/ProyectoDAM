@@ -38,13 +38,14 @@
 <body>
     <div class="container-fluid">
         <h1 class="pt-3">Clientes</h1>
-        <button type="button" class=" btn btn-primary float-right btn-lg" id ="redirecRegistro">Crear</button>
-        <button type="button" class=" btn btn-primary float-right btn-lg" id="redirecDestinatarios">Destinatarios de Clientes</button>
+        <button type="button" class=" btn btn-primary float-right" id ="redirecRegistro">Crear</button>
+        <button type="button" class=" btn btn-primary float-right " id="redirecDestinatarios">Destinatarios de Clientes</button>
     </div>
     <div class="container-fluid">
-            <button type="button" class=" btn btn-primary float-right btn-lg" id="siguiente">Siguientes 5</button>
-            <table class="table table-bordered table-striped" id="tabla">
-                <thead class="thead-dark">
+            <button type="button" class=" btn btn-primary" id="atras">Atras</button>
+            <button type="button" class=" btn btn-primary" id="siguiente">Siguiente</button>
+            <table class="table table-bordered  table-hover table-dark table-striped " id="tabla">
+                <thead style="background-color: #34495e;">
                     <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Nombre Cliente</th>
@@ -53,6 +54,7 @@
                     <th scope="col">Acción</th>
                     </tr>
                 </thead>
+                <tbody id="tbody" class=" table-bordered table-sm"></tbody>
             </table>
     </div>
     <!-- Modal -->

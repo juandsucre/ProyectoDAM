@@ -11,7 +11,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://kit.fontawesome.com/46096f1721.js" crossorigin="anonymous"></script>
+  <script src="qrcode.js"></script>
   <script src="gestionEnvios.js"></script>
+  
   <title>Envios</title>
 </head>
 <header>
@@ -58,13 +60,13 @@
         <div class="row">
           <div class="col-sm-10">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="PR" checked>
               <label class="form-check-label" for="gridRadios1">
                 PENDIENTE DE RECOGIDA
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="OO">
               <label class="form-check-label" for="gridRadios2">
                 EN OFICINA DE ORIGEN
               </label>
@@ -88,19 +90,39 @@
       </div>
       <div class="row-sm-10">
         <label for="direccion">Dirección Completa</label>
-        <input type="text" class="form-control" id="direccion" placeholder="Introduzca Dirección Completa" readonly>
+        <input type="text" class="form-control" id="direccion" placeholder="Introduzca Dirección Completa">
       </div>
   </div>
   <div class="form-group" >
     <div class="d-flex justify-content-end" >
-      <button type="submit" class="btn btn-primary" style="margin-right:20px;">Enviar</button>
+      <button type="submit" class="btn btn-primary" style="margin-right:20px;" id="enviar">Enviar</button>
+      <button type="button" class="btn btn-primary" style="margin-right:20px;" id="generar" data-toggle="modal" data-target="#myModal" disabled>Generar QR</button>
       <button type="submit" class="btn btn-secondary" style="margin-right:130px;" id="cancelar">Cancelar</button>
     </div>
   </div>
-
+  
   </form>
+  
   </div>
-
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" id="body">
+          <div id="codigoQR"></div> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
 </body>
 
 </html>

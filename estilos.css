@@ -34,3 +34,9 @@ p:hover{
     font-weight: bold;
 
 }
+#codigoQR{
+    width: 256px;
+    height: 256px;
+    margin-top: 25px;
+    border: 2px solid #eee;
+}  

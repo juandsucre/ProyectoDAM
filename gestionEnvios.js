@@ -1,16 +1,19 @@
 window.onload = inicializacion
 var httpreq = new XMLHttpRequest();
+var httpreq2 = new XMLHttpRequest();
 var httpreqd = new XMLHttpRequest();
 function inicializacion() {
     // document.getElementById("crearCliente").addEventListener("click", crearCliente)
     // document.getElementById("idModificar").addEventListener("click", modificarCliente)
 
     //document.getElementById("clienteEnvia")
-    //document.getElementById("redirecRegistro").addEventListener("click", redirecRegistro)
+    //document.getElementById("enviar").addEventListener("click", enviar)
    
   
-
-
+    document.getElementById("enviar").addEventListener("click", enviar)
+    
+    document.getElementById("generar").addEventListener("click", procesaqr)
+    
     httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/envios/get')
     //httpreq.onload = procesapeticion
     httpreq.onload = rellenarClientes
@@ -23,11 +26,15 @@ function rellenarClientes(){
     if (httpreq.readyState == 4) {
         if (httpreq.status == 200) {
             var envios = JSON.parse(httpreq.responseText);
-            console.log(envios[1])
+            for(j= 0; j<envios.length; j++)
+            {
+                envios[j].idEnvio;
+            }
+            localStorage.setItem("tEnvios",j);
             var seleccion = "";
             seleccion+= '<select class="form-control" id="clienteEnviaar"  onchange="getDestinatarios()">'+'  <option value="1">Seleccione Cliente</option>'
           
-            for (var j = 0; j < persona.length; j++) {
+            for (var j = 0; j < persona.length; j++){
                 //'<option id="'+i+'">'+envios[i].nombreCliente+'</option>'
                 seleccion+='<option value="' + j + '">' + persona[j].nombreCliente + '</option>'
                
@@ -77,6 +84,7 @@ function rellenarDestinos() {
     }
 }
 function rellenarCampos(){
+    document.getElementById("generar").removeAttribute("disabled");
     let destinatarios = JSON.parse(httpreq.responseText);
     var e = document.getElementById("clienteRecibe");
     strUser = e.options[e.selectedIndex].value;
@@ -85,3 +93,75 @@ function rellenarCampos(){
     document.getElementById("codPostal").value = destinatarios[strUser].codigoPostal;
     document.getElementById("direccion").value = destinatarios[strUser].direccionCompleta;
 }
+
+function enviar()
+{
+    let tal = document.getElementById("clienteEnviaar").value
+    let persona = JSON.parse(localStorage.getItem('persona'));
+    console.log(persona[tal].cifnif)
+   let estadoenvio = document.getElementsByName("gridRadios").value;
+    let envio = {
+        "clientes": {
+            "cifnif": persona[tal].cifnif,
+            "direccionFacturacion": persona[tal].direccionFacturacion,
+            "idCliente": persona[tal].idCliente,
+            "nombreCliente": persona[tal].nombreCliente
+        },
+        "codigoPostal": document.getElementById("codPostal").value,
+        "direccionCompleta":  document.getElementById("direccion").value,
+        "dninif":  document.getElementById("cifnif").value,
+        "estadosenvio": {
+            "descripcionEstado": "",
+            "idEstadoEnvio": "EN"
+        },
+        "idEnvio": 0,
+        "nombreDestinatario": document.getElementById("nombre").value,
+        "numIntentosEntrega": 0
+    }
+    httpreq.open('POST', 'http://localhost:8080/ProyectoHiberest/webapi/envios')
+    httpreq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    httpreq.onload = procesacreacion
+    let jsonstring = JSON.stringify(envio)
+    httpreq.send(jsonstring)
+    
+  
+}
+
+
+function procesacreacion(){
+    if (httpreq.readyState == 4) {
+        if (httpreq.status == 200) {
+            let cliente = JSON.parse(httpreq.responseText)
+/* 
+            document.getElementById("idFormulario").style.display = "block"
+            document.getElementById("idMsg").style.display = "block"
+            document.getElementById("idMsg").innerHTML = "Cliente " + cliente.id + " creado"
+            document.getElementById("idConectandose").style.display = "none"
+            PARA OBTENER DATOS DEL OBJETO CLIENTE
+            document.getElementById("idID").value = cliente.id
+            document.getElementById("idCodigo").value = cliente.codigo
+            document.getElementById("idEmpresa").value = cliente.empresa */
+
+        } else {
+            document.getElementById("idMsg").innerHTML = "Error al añadir destinatario: " + httpreq.status
+            document.getElementById("idFormulario").style.display = "none"
+            document.getElementById("idMsg").style.display = "block"
+            document.getElementById("idConectandose").style.display = "none"
+        }
+    }
+}
+
+
+function procesaqr(){
+    
+  //  var miCodigoQR = new QRCode("codigoQR");
+var Envios = localStorage.getItem("tEnvios");
+var otra = parseInt(Envios)+1;
+var otraa = otra.toString();
+document.getElementById("body").innerHTML=""
+document.getElementById("body").innerHTML='<div id="codigoQR"></div> '
+ 
+var miCodigoQR = new QRCode("codigoQR");
+ miCodigoQR.makeCode(otraa);
+}
+
