@@ -39,4 +39,11 @@ p:hover{
     height: 256px;
     margin-top: 25px;
     border: 2px solid #eee;
-}  
+}
+
+.nav-link{
+    cursor: pointer;
+}
+.nav-link:hover{
+    color: aqua;
+}

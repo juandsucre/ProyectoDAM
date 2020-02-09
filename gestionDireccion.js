@@ -1,26 +1,30 @@
 window.onload = inicializacion
 
-
 var httpreq = new XMLHttpRequest();
+var httpreqc = new XMLHttpRequest();
 function inicializacion() {
 
     document.getElementById("visualizar").addEventListener("click", visualizarClientes)
     document.getElementById("redirecDestinatarios").addEventListener("click", redirecDestinatarios)
 
     httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/destinatarios/get')
+    httpreqc.open('GET','http://localhost:8080/ProyectoHiberest/webapi/clientes/get/todos');
     httpreq.onload = visualizarClientes
+    httpreqc.onload = procesacreacion
     httpreq.send()
+    httpreqc.send()
 }
 
-var persona = JSON.parse(localStorage.getItem('persona'));
+
 var posicion = localStorage.getItem('posicion')
 
 
 function visualizarClientes() {
 
+
     if (httpreq.readyState == 4) {
         if (httpreq.status == 200) {
-
+            var persona = JSON.parse(httpreqc.responseText)
             var seleccion = "";
             seleccion += '<select class="form-control" id="select">' + '<option value="1">Seleccione Cliente</option>'
 
@@ -38,6 +42,7 @@ function visualizarClientes() {
             let posicionSelect = document.getElementById("select").value;
         }
     }
+    
 
     document.getElementById("select").addEventListener("change", actualiza);
 }
@@ -46,7 +51,9 @@ function visualizarClientes() {
 function actualiza() {
     document.getElementById("tbody").innerHTML = ""
     var destinatarios = JSON.parse(httpreq.responseText);
+    var persona = JSON.parse(httpreqc.responseText)
     let posicionSelect = document.getElementById("select").value;
+    localStorage.setItem("pos",posicionSelect);
     var bool = 0
     for (var i = 0; i < destinatarios.length; i++) {
 
@@ -84,5 +91,31 @@ function actualiza() {
 }
 
 function redirecDestinatarios() {
+    
     location.href = 'destinatarios.html'
+}
+
+function procesacreacion(){
+    if (httpreqc.readyState == 4) {
+        if (httpreqc.status == 200) {
+            //localStorage.setItem("person",httpreqc.responseText);
+           
+
+/*          
+            document.getElementById("idFormulario").style.display = "block"
+            document.getElementById("idMsg").style.display = "block"
+            document.getElementById("idMsg").innerHTML = "Cliente " + cliente.id + " creado"
+            document.getElementById("idConectandose").style.display = "none"
+            PARA OBTENER DATOS DEL OBJETO CLIENTE
+            document.getElementById("idID").value = cliente.id
+            document.getElementById("idCodigo").value = cliente.codigo
+            document.getElementById("idEmpresa").value = cliente.empresa */
+
+        } else {
+            document.getElementById("idMsg").innerHTML = "Error al añadir destinatario: " + httpreq.status
+            document.getElementById("idFormulario").style.display = "none"
+            document.getElementById("idMsg").style.display = "block"
+            document.getElementById("idConectandose").style.display = "none"
+        }
+    }
 }

@@ -15,17 +15,20 @@ function inicializacion() {
     document.getElementById("generar").addEventListener("click", procesaqr)
     
     httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/envios/get')
-    //httpreq.onload = procesapeticion
+    httpreq2.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/get/todos')
+    httpreq2.onload = procesacreacion
     httpreq.onload = rellenarClientes
     httpreq.send();
+    httpreq2.send();
 }
-var persona = JSON.parse(localStorage.getItem('persona'));
+
 
 
 function rellenarClientes(){
     if (httpreq.readyState == 4) {
         if (httpreq.status == 200) {
             var envios = JSON.parse(httpreq.responseText);
+            var persona = JSON.parse(httpreq2.responseText);
             for(j= 0; j<envios.length; j++)
             {
                 envios[j].idEnvio;
@@ -55,49 +58,58 @@ function getDestinatarios(){
     document.getElementById("codPostal").value ="";
     document.getElementById("direccion").value = "";
     httpreqd.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/destinatarios/get')
-    httpreqd.onload= rellenarDestinos();
+    httpreqd.onload= rellenarDestinos
     httpreqd.send();
 
 }
 
 function rellenarDestinos() {
     let tal = document.getElementById("clienteEnviaar").value
-    console.log(tal)
-    var persona = JSON.parse(localStorage.getItem('persona'));
+    console.log("la persona sele" + (tal))
+    var persona = JSON.parse(httpreq2.responseText);
+    let destinatarios = JSON.parse(httpreqd.responseText);
+    let finald= destinatarios.length
+    finald=finald-1
+    console.log(destinatarios[finald].clientes.idCliente)
     if (httpreq.readyState == 4) {
         if (httpreq.status == 200) {
-            let destinatarios = JSON.parse(httpreq.responseText);
-            console.log(persona[tal].idCliente)
-            console.log(destinatarios[1].clientes.idCliente)
-            for (var i = 0; i < 200; i++){
-
+            var selec = "";
+            selec+= '<select class="form-control" id="clienteRecibee">'+'  <option value="1">Seleccione Cliente</option>'
+            for (var i = 0; i < finald; i++){
+               // console.log(destinatarios[i].clientes.idCliente)
                     if(destinatarios[i].clientes.idCliente === persona[tal].idCliente){
+                       
                         //'<option id="'+i+'">'+destinatarios[i].nombreCliente+'</option>'
-                        $('#clienteRecibe').append('<option class="opc" value="' + i + '">' + destinatarios[i].nombreDestinatario + '</option>')
-                       document.getElementById("clienteRecibe").addEventListener("change",rellenarCampos);
+                        selec+='<option id="opc" value="' + i + '">' + destinatarios[i].nombreDestinatario + '</option>'
                     }
+                    
               
             }
-           
+            selec+= '</select>'
+            document.getElementById("clienteRecibe").innerHTML= selec
+            document.getElementById("clienteRecibee").addEventListener("change",rellenarCampos)
         }
 
     }
+   
+    
+    
 }
 function rellenarCampos(){
+    var e = document.getElementById("clienteRecibee").value;
     document.getElementById("generar").removeAttribute("disabled");
-    let destinatarios = JSON.parse(httpreq.responseText);
-    var e = document.getElementById("clienteRecibe");
-    strUser = e.options[e.selectedIndex].value;
-    document.getElementById("nombre").value = destinatarios[strUser].nombreDestinatario;
-    document.getElementById("cifnif").value = destinatarios[strUser].dninif;
-    document.getElementById("codPostal").value = destinatarios[strUser].codigoPostal;
-    document.getElementById("direccion").value = destinatarios[strUser].direccionCompleta;
+    let destinatarios = JSON.parse(httpreqd.responseText);
+    //strUser = e.options[e.selectedIndex].value;
+    document.getElementById("nombre").value = destinatarios[e].nombreDestinatario;
+    document.getElementById("cifnif").value = destinatarios[e].dninif;
+    document.getElementById("codPostal").value = destinatarios[e].codigoPostal;
+    document.getElementById("direccion").value = destinatarios[e].direccionCompleta;
 }
 
 function enviar()
 {
     let tal = document.getElementById("clienteEnviaar").value
-    let persona = JSON.parse(localStorage.getItem('persona'));
+    let persona = JSON.parse(httpreq2.responseText);
     console.log(persona[tal].cifnif)
    let estadoenvio = document.getElementsByName("gridRadios").value;
     let envio = {
@@ -131,7 +143,7 @@ function enviar()
 function procesacreacion(){
     if (httpreq.readyState == 4) {
         if (httpreq.status == 200) {
-            let cliente = JSON.parse(httpreq.responseText)
+            
 /* 
             document.getElementById("idFormulario").style.display = "block"
             document.getElementById("idMsg").style.display = "block"

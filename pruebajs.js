@@ -5,7 +5,7 @@ function inicializacion() {
     // document.getElementById("crearCliente").addEventListener("click", crearCliente)
     // document.getElementById("idModificar").addEventListener("click", modificarCliente)
     document.getElementById("redirecRegistro").addEventListener("click", redirecRegistro)
-    document.getElementById("redirecDestinatarios").addEventListener("click", redirecDestinatarios)
+    document.getElementById("redirecDirecciones").addEventListener("click", redirecDestinatarios)
     ini=0
     httpreq.open('GET', 'http://localhost:8080/ProyectoHiberest/webapi/clientes/get?idIni=0&idFin=10')
     //httpreq.onload = procesapeticion
@@ -16,8 +16,7 @@ function inicializacion() {
 }
 
 function redirecDestinatarios(){
-    alert("Hola")
-    location.href = 'destinatarios.html'
+    location.href = 'direcciones.html'
 }
 function siguiente(){
     ini = parseInt(ini+10)
@@ -51,7 +50,7 @@ function visualizarClientes() {
     if (httpreq.readyState == 4) {
         if (httpreq.status == 200) {
             var person = JSON.parse(httpreq.responseText);
-            localStorage.setItem('persona', JSON.stringify(person));
+           // localStorage.setItem('persona', JSON.stringify(person));
             for (var i = 0; i < person.length; i++) {
                 $("#tabla").append(
                     '<tr>' +
@@ -83,7 +82,7 @@ function editar(ctl, persona, i) {
 
     //MODAL
     document.getElementById("agregarDireccion").addEventListener("click", agregarDireccion)
-    document.getElementById("redirecDestinatarios").addEventListener("click", redirecDestinatarios)
+    document.getElementById("redirecDirecciones").addEventListener("click", redirecDestinatarios)
 
     function agregarDireccion() {
         window.location.href = 'direcciones.html'

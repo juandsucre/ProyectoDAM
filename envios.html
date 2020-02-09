@@ -11,6 +11,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://kit.fontawesome.com/46096f1721.js" crossorigin="anonymous"></script>
+  
   <script src="qrcode.js"></script>
   <script src="gestionEnvios.js"></script>
   
@@ -33,6 +34,9 @@
               <li class="nav-item">
                 <a class="nav-link text-white" href="envios.html">Envios</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="estadosEnvio.html">Estados de Envios</a>
+              </li>
           </div>
         </nav>
 </header>
@@ -50,10 +54,11 @@
           <label for="clienteEnvia">Seleccione Cliente</label>
         </div>
         <div class="col">
-          <select class="form-control" id="clienteRecibe">
-            <option value="1">Seleccione Destinatario</option>
-          </select>
-          <label for="clienteRecibe">Seleccione Destinatario</label>
+          <div class="col" id="clienteRecibe">
+
+            <label for="clienteRecibe">Seleccione Destinatario</label>
+          </div>
+         
         </div>
       </div>
       <fieldset class="form-group" style="margin-top: 70px">
